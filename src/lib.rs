@@ -231,6 +231,7 @@ pub struct MessageBuilder<'x> {
     pub text_body: Option<MimePart<'x>>,
     pub attachments: Option<Vec<MimePart<'x>>>,
     pub body: Option<MimePart<'x>>,
+    pub flowed: bool,
 }
 
 impl<'x> Default for MessageBuilder<'x> {
@@ -248,6 +249,7 @@ impl<'x> MessageBuilder<'x> {
             text_body: None,
             attachments: None,
             body: None,
+            flowed: false,
         }
     }
 
@@ -316,11 +318,20 @@ impl<'x> MessageBuilder<'x> {
             .push(value.into());
     }
 
+    /// Mark body as format=flowed
+    pub fn format_flowed(&mut self) {
+        self.flowed = true
+    }
+
     /// Set the plain text body of the message. Note that only one plain text body
     /// per message can be set using this function.
     /// To build more complex MIME body structures, use the `body` method instead.
     pub fn text_body(&mut self, value: impl Into<Cow<'x, str>>) {
-        self.text_body = Some(MimePart::new_text(value));
+        if self.flowed {
+            self.text_body = Some(MimePart::new_text_flowed(value));
+        } else {
+            self.text_body = Some(MimePart::new_text(value));
+        }
     }
 
     /// Set the HTML body of the message. Note that only one HTML body

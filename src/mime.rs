@@ -105,8 +105,6 @@ impl<'x> MimePart<'x> {
             )]),
         }
     }
-
-    /// Create a new text/plain MIME part.
     pub fn new_text(contents: impl Into<Cow<'x, str>>) -> Self {
         Self {
             contents: BodyPart::Text(contents.into()),
@@ -114,6 +112,20 @@ impl<'x> MimePart<'x> {
                 "Content-Type".into(),
                 ContentType::new("text/plain")
                     .attribute("charset", "utf-8")
+                    .into(),
+            )]),
+        }
+    }
+
+    /// Create a new text/plain MIME part with format=flowed
+    pub fn new_text_flowed(contents: impl Into<Cow<'x, str>>) -> Self {
+        Self {
+            contents: BodyPart::Text(contents.into()),
+            headers: BTreeMap::from_iter(vec![(
+                "Content-Type".into(),
+                ContentType::new("text/plain")
+                    .attribute("charset", "utf-8")
+                    .attribute("format", "flowed")
                     .into(),
             )]),
         }
