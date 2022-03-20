@@ -30,12 +30,7 @@ pub fn get_encoding_type(input: &[u8], is_inline: bool, is_body: bool) -> Encodi
     for (pos, &ch) in input.iter().enumerate() {
         line_len += 1;
 
-        if ch >= 127
-            || ((ch == b' ' || ch == b'\t')
-                && ((is_body
-                    && matches!(input.get(pos + 1..), Some([b'\n', ..] | [b'\r', b'\n', ..])))
-                    || pos == input.len() - 1))
-        {
+        if ch >= 127 {
             qp_len += 3;
             if !needs_encoding {
                 needs_encoding = true;
