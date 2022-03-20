@@ -12,7 +12,7 @@ categories = ["email"]
 readme = "README.md"
 
 [dependencies]
-chrono = {version = "0.4", default-features = false}
+chrono = "0.4"
 
 [dev-dependencies]
 mail-parser = "0.4.3"
