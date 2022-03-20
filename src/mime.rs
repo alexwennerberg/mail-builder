@@ -19,8 +19,6 @@ use std::{
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
-use rand::Rng;
-
 use crate::{
     encoders::{
         base64::base64_encode,
@@ -69,18 +67,8 @@ impl<'x> From<Vec<u8>> for BodyPart<'x> {
 }
 
 pub fn make_boundary() -> String {
-    let mut s = DefaultHasher::new();
-    gethostname::gethostname().hash(&mut s);
-    thread::current().id().hash(&mut s);
-    format!(
-        "{:x}_{:x}_{:x}",
-        SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap_or_else(|_| Duration::new(0, 0))
-            .as_nanos(),
-        rand::thread_rng().gen::<u64>(),
-        s.finish()
-    )
+    // TODO
+    String::new()
 }
 
 impl<'x> MimePart<'x> {
