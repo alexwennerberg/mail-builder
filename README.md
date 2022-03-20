@@ -1,4 +1,6 @@
 # mail-builder
+## Note this is a mangled version of this library where I cut out a bunch of code that I don't need to limit dependencies
+## Long term goal is to upstream a chrono-free and rand-free version of this library
 
 [![crates.io](https://img.shields.io/crates/v/mail-builder)](https://crates.io/crates/mail-builder)
 [![build](https://github.com/stalwartlabs/mail-builder/actions/workflows/rust.yml/badge.svg)](https://github.com/stalwartlabs/mail-builder/actions/workflows/rust.yml)

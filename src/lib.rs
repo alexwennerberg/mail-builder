@@ -218,7 +218,6 @@ use std::{
     io::{self, Write},
 };
 
-use chrono::Local;
 use headers::{
     address::Address, date::Date, message_id::MessageId, text::Text, Header, HeaderType,
 };
@@ -409,7 +408,7 @@ impl<'x> MessageBuilder<'x> {
 
         if !has_date {
             output.write_all(b"Date: ")?;
-            output.write_all(Local::now().to_rfc2822().as_bytes())?;
+            output.write_all(b"Thu, 13 Feb 1969 23:32:54 -0330");
             output.write_all(b"\r\n")?;
         }
 
